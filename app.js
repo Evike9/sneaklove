@@ -56,8 +56,15 @@ if (dev_mode === true) {
 app.use(require("./middlewares/exposeLoginStatus")); // expose le status de connexion aux templates
 app.use(require("./middlewares/exposeFlashMessage")); // affiche les messages dans le template
 
-// routers
-app.use("/", require("./routes/index"));
+
+
+const indexRouter = require("./routes/index");
+const signRouter = require("./routes/auth");
+
+// use routers
+app.use("/", indexRouter);
+app.use("/auth", signRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -74,6 +81,6 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-console.log("http://localhost:" + process.env.PORT || 3000); // added !! 
+console.log("http://localhost:" + process.env.PORT || 9999); // added !! 
 
 module.exports = app;
